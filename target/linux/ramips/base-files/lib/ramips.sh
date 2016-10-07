@@ -202,6 +202,9 @@ ramips_board_detect() {
 	*"FreeStation5")
 		name="freestation5"
 		;;
+	*"Flo I2CD")
+		name="i2cd"
+		;;
 	*"GL-MT300A")
 		name="gl-mt300a"
 		;;
