@@ -1,0 +1,37 @@
+machine:
+  pre:
+    - curl -ssl https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+
+  pre:
+    - ./build_scripts/install_dependencies.sh
+
+  override:
+    # Run build. Timeout needed for gcc build and other long-running tasks
+    - ./build_scripts/build.sh:
+        timeout: 4800
+
+test:
+  override:
+    - ./build_scripts/test.sh:
+        timeout: 1200
+
+deployment:
+  development:
+    branch: [dev]
+    owner: FloTechnologies
+    commands:
+      - ./build_scripts/deploy_development.sh:
+          timeout: 1200
+  production:
+    branch: [master]
+    owner: FloTechnologies
+    commands:
+      - ./build_scripts/deploy_development.sh:
+          timeout: 1200
+
