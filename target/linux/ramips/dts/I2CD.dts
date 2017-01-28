@@ -65,18 +65,11 @@
 			ralink,function = "gpio";
 		};
 	};
-
-	uartf_pins: uartf {
-		uart {
-			ralink,group = "uartf";
-			ralink,function = "uartf";
-		};
-	};
 };
 
 &uart {
 	pinctrl-names = "default";
-	pinctrl-0 = <&uartf_pins>;
+	pinctrl-0 = <&uartf_gpio_pins>;
 
 	status = "okay";
 };
