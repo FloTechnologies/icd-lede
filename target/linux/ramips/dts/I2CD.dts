@@ -82,6 +82,10 @@
 	mtd-mac-address = <&factory 0x4>;
 };
 
+&usbphy {
+	status = "disabled";
+};
+
 &wmac {
 	ralink,mtd-eeprom = <&factory 0>;
 };
