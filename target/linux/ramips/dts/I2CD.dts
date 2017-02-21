@@ -64,6 +64,11 @@
 			ralink,group = "i2c", "wdt";
 			ralink,function = "gpio";
 		};
+
+		nd_sd {
+			ralink,group = "nd_sd";
+			ralink,function = "sd";
+		};
 	};
 };
 
