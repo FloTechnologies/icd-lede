@@ -35,7 +35,7 @@ define KernelPackage/sdhci-mt7620
 	CONFIG_MTK_AEE_KDUMP=n \
 	CONFIG_MTK_MMC_CD_POLL=n
   FILES:= \
-	$(LINUX_DIR)/drivers/mmc/host/mtk-mmc/mtk_sd.ko
+	$(LINUX_DIR)/drivers/mmc/host/mtk_sd.ko
   AUTOLOAD:=$(call AutoProbe,mtk_sd,1)
 endef
 

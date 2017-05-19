@@ -1,5 +1,6 @@
 /dts-v1/;
 
+#include <dt-bindings/gpio/gpio.h>
 #include "mt7620a.dtsi"
 
 / {
@@ -21,6 +22,19 @@
 			gpios = <&gpio0 17 1>;
 			linux,code = <0x101>;
 		};
+	};
+
+	sysctl_clkcfg1: sysctl_clkcfg1@0x10000030 {
+		compatible = "mt7620-sysctl-clkcfg1", "syscon";
+		reg = <0x10000030 0x4>;
+	};
+
+	regulator_3_3v: 3-3-v-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "3.3V";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-always-on;
 	};
 };
 
@@ -64,7 +78,9 @@
 			ralink,group = "i2c", "wdt";
 			ralink,function = "gpio";
 		};
+	};
 
+	sdhci_sd_pins: sdhci_sd {
 		nd_sd {
 			ralink,group = "nd_sd";
 			ralink,function = "sd";
@@ -80,6 +96,20 @@
 };
 
 &sdhci {
+	compatible = "i2cd,mt7620-sdhci";
+	no-1-8-v;
+	bus-width = <4>;
+	cap-sd-highspeed;
+	cap-mmc-highspeed;
+	cap-mmc-hw-reset;
+	max-frequency = <48000000>;
+	vmmc-supply = <&regulator_3_3v>;
+	vqmmc-supply = <&regulator_3_3v>;
+	hclk-regmap = <&sysctl_clkcfg1 30>;
+	pinctrl-names = "default", "state_uhs";
+	pinctrl-0 = <&sdhci_sd_pins>;
+	pinctrl-1 = <&sdhci_sd_pins>;
+	reset-gpio = <&gpio0 1 GPIO_ACTIVE_LOW>;
 	status = "okay";
 };
 
