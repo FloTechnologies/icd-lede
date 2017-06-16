@@ -1,4 +1,5 @@
 . /lib/functions/network.sh
+. /lib/functions/wireless.sh
 
 wpa_supplicant_add_rate() {
 	local var="$1"
@@ -192,6 +193,8 @@ hostapd_common_add_bss_config() {
 }
 
 hostapd_set_bss_options() {
+	killall -q async-disable-wifi-ap
+
 	local var="$1"
 	local phy="$2"
 	local vif="$3"
@@ -476,6 +479,10 @@ hostapd_set_bss_options() {
 	}
 
 	append "$var" "$bss_conf" "$N"
+
+	async-disable-wifi-ap &
+	/etc/init.d/dnsmasq restart
+
 	return 0
 }
 
@@ -583,6 +590,8 @@ wpa_supplicant_add_network() {
 		ssid bssid key \
 		basic_rate mcast_rate \
 		ieee80211w ieee80211r
+
+	key=$(wireless_decrypt_passwd "$key")
 
 	set_default ieee80211r 0
 
