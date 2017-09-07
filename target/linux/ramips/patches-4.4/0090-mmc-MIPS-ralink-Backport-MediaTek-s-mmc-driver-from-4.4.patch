@@ -1737,7 +1737,7 @@ index 0000000..e9bc077
 +	udelay(10); /* 10us is enough */
 +
 +	gpiod_set_value(host->pwrctrl_gpio, 1);
-+	msleep(500);
++	msleep(2000);
 +	gpiod_set_value(host->pwrctrl_gpio, 0);
 +
 +	sdr_clr_bits(host->base + EMMC_IOCON, 1);
