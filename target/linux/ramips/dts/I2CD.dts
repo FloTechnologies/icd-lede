@@ -102,7 +102,7 @@
 	cap-sd-highspeed;
 	cap-mmc-highspeed;
 	cap-mmc-hw-reset;
-	max-frequency = <24000000>;
+	max-frequency = <48000000>;
 	vmmc-supply = <&regulator_3_3v>;
 	vqmmc-supply = <&regulator_3_3v>;
 	hclk-regmap = <&sysctl_clkcfg1 30>;
