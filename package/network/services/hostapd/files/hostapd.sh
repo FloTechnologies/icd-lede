@@ -193,6 +193,7 @@ hostapd_common_add_bss_config() {
 }
 
 hostapd_set_bss_options() {
+	logger -t hostapd.sh "disabling auto Wi-Fi AP disabler"
 	killall -q async-disable-wifi-ap
 
 	local var="$1"
@@ -480,8 +481,8 @@ hostapd_set_bss_options() {
 
 	append "$var" "$bss_conf" "$N"
 
+	logger -t hostapd.sh "enabling auto Wi-Fi AP disabler"
 	async-disable-wifi-ap &
-	/etc/init.d/dnsmasq restart
 
 	return 0
 }
